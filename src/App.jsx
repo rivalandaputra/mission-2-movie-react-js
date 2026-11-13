@@ -18,9 +18,16 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+
+        {/* Halaman Login */}
         <Route path="/" element={<Login />} />
+
+        {/* Halaman Register */}
         <Route path="/register" element={<Register />} />
+
+        {/* Halaman Home */}
         <Route path="/home" element={<Home />} />
+
       </Routes>
     </BrowserRouter>
   )
@@ -29,7 +36,7 @@ function App() {
 
 // ========================================
 // 3. EXPORT KOMPONEN
-// Agar komponen App bisa digunakan oleh file lain.
+// Agar komponen App bisa digunakan oleh main.jsx.
 // ========================================
 
 export default App

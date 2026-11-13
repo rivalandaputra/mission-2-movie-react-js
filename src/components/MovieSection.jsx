@@ -26,6 +26,7 @@ function MovieSection({
 
   const sliderRef = useRef(null)
 
+
   // ========================================
   // 4. FUNGSI GESER FILM
   // Menggeser daftar film ke kiri atau kanan.
@@ -40,9 +41,10 @@ function MovieSection({
     })
   }
 
+
   // ========================================
   // 5. TAMPILAN SECTION FILM
-  // Menampilkan judul, daftar film, dan tombol panah.
+  // Menampilkan judul, daftar film, badge, rating, dan tombol navigasi.
 // ========================================
 
   return (
@@ -50,7 +52,7 @@ function MovieSection({
       <h2>{title}</h2>
 
       <div className="trending-wrapper">
-        {/* Tombol geser ke kiri */}
+        {/* Tombol untuk menggeser ke kiri */}
         <button
           type="button"
           className="trending-arrow trending-prev"
@@ -66,17 +68,20 @@ function MovieSection({
             // Menentukan identitas film.
             const movieKey = movie.movieKey || movie.id
 
-            // Memeriksa apakah film sudah tersimpan.
+            // Memeriksa apakah film sudah tersimpan di Daftar Saya.
             const isSaved = savedMovies.some(
               (savedMovie) =>
                 (savedMovie.movieKey || savedMovie.id) === movieKey
             )
 
             return (
-              <div className="trending-card" key={movie.id}>
+              <div className="trending-card" key={movieKey}>
                 {/* Poster dan badge film */}
                 <div className="trending-poster">
-                  <img src={movie.poster} alt={movie.title} />
+                  <img
+                    src={movie.poster}
+                    alt={movie.title}
+                  />
 
                   {movie.badge && (
                     <span
@@ -94,7 +99,7 @@ function MovieSection({
                   ⭐ {movie.rating}
                 </p>
 
-                {/* Tombol untuk mengelola Daftar Saya */}
+                {/* Tombol untuk menambah atau menghapus film dari Daftar Saya */}
                 <button
                   type="button"
                   className="my-list-button"
@@ -115,7 +120,7 @@ function MovieSection({
           })}
         </div>
 
-        {/* Tombol geser ke kanan */}
+        {/* Tombol untuk menggeser ke kanan */}
         <button
           type="button"
           className="trending-arrow trending-next"
@@ -132,7 +137,7 @@ function MovieSection({
 
 // ========================================
 // 6. EXPORT KOMPONEN
-// Agar komponen bisa digunakan oleh file lain.
+// Agar komponen bisa digunakan oleh Home.jsx.
 // ========================================
 
 export default MovieSection

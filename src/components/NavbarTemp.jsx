@@ -13,12 +13,23 @@ import { useNavigate } from 'react-router-dom'
 // ========================================
 
 function Navbar({ searchTerm, setSearchTerm }) {
-  // State untuk mengatur pencarian dan menu mobile.
+
+  // ========================================
+  // 2.1 STATE NAVBAR
+  // Mengatur tampilan pencarian dan menu navigasi mobile.
+// ========================================
+
   const [showSearch, setShowSearch] = useState(false)
   const [showMenu, setShowMenu] = useState(false)
 
   // Menyiapkan navigasi halaman.
   const navigate = useNavigate()
+
+
+  // ========================================
+  // 2.2 FUNGSI NAVBAR
+  // Mengatur pencarian, menu mobile, dan navigasi logout.
+// ========================================
 
   // Mengatur tampilan input pencarian.
   function toggleSearch() {
@@ -44,17 +55,20 @@ function Navbar({ searchTerm, setSearchTerm }) {
     setShowMenu(false)
   }
 
+
   // ========================================
   // 3. TAMPILAN NAVBAR
-  // Menampilkan logo, menu, tombol aksi, dan input pencarian.
-  // ========================================
+  // Menampilkan logo, menu navigasi, tombol aksi, dan input pencarian.
+// ========================================
 
   return (
     <nav className="navbar">
+
       {/* Logo CHILL */}
       <a href="#top" className="navbar-logo">
         CHILL
       </a>
+
 
       {/* Tombol pencarian dan menu mobile */}
       <div className="navbar-actions">
@@ -79,10 +93,9 @@ function Navbar({ searchTerm, setSearchTerm }) {
         </button>
       </div>
 
+
       {/* Menu navigasi */}
-      <div
-        className={`navbar-menu ${showMenu ? 'menu-open' : ''}`}
-      >
+      <div className={`navbar-menu ${showMenu ? 'menu-open' : ''}`}>
         <a href="#series" onClick={closeMenu}>
           Series
         </a>
@@ -104,6 +117,7 @@ function Navbar({ searchTerm, setSearchTerm }) {
         </button>
       </div>
 
+
       {/* Input pencarian */}
       {showSearch && (
         <input
@@ -116,6 +130,7 @@ function Navbar({ searchTerm, setSearchTerm }) {
           aria-label="Cari film"
         />
       )}
+
     </nav>
   )
 }
@@ -123,7 +138,7 @@ function Navbar({ searchTerm, setSearchTerm }) {
 
 // ========================================
 // 4. EXPORT KOMPONEN
-// Agar komponen bisa digunakan oleh file lain.
+// Agar komponen bisa digunakan oleh Home.jsx.
 // ========================================
 
 export default Navbar

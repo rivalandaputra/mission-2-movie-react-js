@@ -1,8 +1,11 @@
 // ========================================
-// 1. IMPORT DATA FILM
-// Mengimpor data film dari setiap kategori.
+// 1. IMPORT
 // ========================================
 
+// Import Hook React
+import { useState } from 'react'
+
+// Import data film
 import {
   continueWatchingMovies,
   topRatingMovies,
@@ -10,29 +13,11 @@ import {
   newReleaseMovies,
 } from '../data/movies'
 
-
-// ========================================
-// 2. IMPORT HOOK REACT
-// Mengimpor Hook untuk mengelola state.
-// ========================================
-
-import { useState } from 'react'
-
-
-// ========================================
-// 3. IMPORT ASSETS
-// Mengimpor gambar untuk bagian Hero.
-// ========================================
-
+// Import assets
 import heroImage from '../assets/moana.jpg'
 import moanaLogo from '../assets/logo-moana.png'
 
-
-// ========================================
-// 4. IMPORT KOMPONEN
-// Mengimpor komponen yang digunakan di halaman Home.
-// ========================================
-
+// Import komponen
 import MyList from './MyList'
 import Navbar from './NavbarTemp'
 import ContinueWatching from './ContinueWatching'
@@ -42,26 +27,31 @@ import Footer from './Footer'
 
 
 // ========================================
-// 5. KOMPONEN HOME
-// Mengatur halaman utama, pencarian film,
-// dan fitur Daftar Saya.
+// 2. KOMPONEN HOME
+// Mengatur halaman utama aplikasi CHILL.
 // ========================================
 
 function Home() {
-  // State untuk menyimpan kata kunci pencarian.
+
+  // ========================================
+  // 2.1 STATE
+  // Mengelola pencarian dan Daftar Saya.
+  // ========================================
+
+  // State pencarian film
   const [searchTerm, setSearchTerm] = useState('')
 
-  // State untuk menyimpan daftar film dari localStorage.
+  // State Daftar Saya dari localStorage
   const [savedMovies, setSavedMovies] = useState(() => {
     const saved = localStorage.getItem('myList')
+
     return saved ? JSON.parse(saved) : []
   })
 
 
   // ========================================
-  // 6. MENGGABUNGKAN DATA FILM
-  // Menggabungkan semua kategori dan mencegah
-  // judul film yang sama muncul berulang.
+  // 2.2 DATA FILM
+  // Menggabungkan seluruh kategori film.
   // ========================================
 
   const allMovies = [
@@ -80,8 +70,8 @@ function Home() {
 
 
   // ========================================
-  // 7. MEMFILTER HASIL PENCARIAN
-  // Mencari film berdasarkan judul.
+  // 2.3 PENCARIAN FILM
+  // Memfilter film berdasarkan judul.
   // ========================================
 
   const filteredMovies = allMovies.filter((movie) =>
@@ -90,14 +80,17 @@ function Home() {
       .includes(searchTerm.trim().toLowerCase())
   )
 
+  const isSearching = searchTerm.trim() !== ''
+
 
   // ========================================
-  // 8. MENAMBAHKAN FILM KE DAFTAR SAYA
-  // Menyimpan film ke state dan localStorage.
+  // 3. FUNGSI CRUD
+  // Mengelola data pada Daftar Saya.
   // ========================================
 
+  // CREATE
+  // Menambahkan film ke Daftar Saya.
   function handleAddToList(movie) {
-    // Mengambil identitas film.
     const movieKey = movie.movieKey || movie.id
 
     // Memeriksa apakah film sudah tersimpan.
@@ -106,10 +99,9 @@ function Home() {
         (savedMovie.movieKey || savedMovie.id) === movieKey
     )
 
-    // Menghentikan proses jika film sudah tersimpan.
     if (alreadySaved) return
 
-    // Memperbarui daftar film yang tersimpan.
+    // Menambahkan film ke daftar.
     const updatedList = [...savedMovies, movie]
 
     setSavedMovies(updatedList)
@@ -117,39 +109,47 @@ function Home() {
   }
 
 
-  // ========================================
-  // 9. MENGHAPUS FILM DARI DAFTAR SAYA
-  // Menghapus film dari state dan localStorage.
-  // ========================================
+  // UPDATE
+  // Mengubah status tontonan film.
+  function handleUpdateStatus(movieKey, newStatus) {
+    const updatedList = savedMovies.map((movie) => {
+      const currentKey = movie.movieKey || movie.id
 
+      if (currentKey === movieKey) {
+        return {
+          ...movie,
+          status: newStatus,
+        }
+      }
+
+      return movie
+    })
+
+    setSavedMovies(updatedList)
+    localStorage.setItem('myList', JSON.stringify(updatedList))
+  }
+
+
+  // DELETE
+  // Menghapus film dari Daftar Saya.
   function handleRemoveFromList(movieKey) {
-    // Membuat daftar tanpa film yang dipilih.
     const updatedList = savedMovies.filter(
       (movie) =>
         (movie.movieKey || movie.id) !== movieKey
     )
 
-    // Memperbarui daftar film yang tersimpan.
     setSavedMovies(updatedList)
     localStorage.setItem('myList', JSON.stringify(updatedList))
   }
 
 
   // ========================================
-  // 10. MEMERIKSA STATUS PENCARIAN
-  // Menentukan apakah pengguna sedang mencari film.
-  // ========================================
-
-  const isSearching = searchTerm.trim() !== ''
-
-
-  // ========================================
-  // 11. TAMPILAN HALAMAN HOME
-  // Menampilkan navigasi, film, dan footer.
+  // 4. TAMPILAN HALAMAN HOME
   // ========================================
 
   return (
     <div className="home-page" id="top">
+
       {/* Navbar */}
       <Navbar
         searchTerm={searchTerm}
@@ -157,15 +157,22 @@ function Home() {
       />
 
       <main className="home-content">
-        {/* Hero dan Lanjut Tonton */}
+
+        {/* ========================================
+            4.1 HERO DAN LANJUT TONTON
+            Ditampilkan ketika tidak sedang mencari.
+        ======================================== */}
+
         {!isSearching && (
           <>
-            {/* Hero film */}
+
+            {/* Hero Section */}
             <section
               className="hero-section"
               style={{ backgroundImage: `url(${heroImage})` }}
             >
               <div className="hero-overlay">
+
                 {/* Logo film */}
                 <img
                   src={moanaLogo}
@@ -181,7 +188,7 @@ function Home() {
                   journey to restore prosperity to her people.
                 </p>
 
-                {/* Tombol hero */}
+                {/* Tombol Hero */}
                 <div className="hero-buttons">
                   <button
                     type="button"
@@ -197,38 +204,46 @@ function Home() {
                     ℹ Selengkapnya
                   </button>
                 </div>
+
               </div>
             </section>
 
-            {/* Bagian Lanjut Tonton */}
+
+            {/* Continue Watching */}
             <ContinueWatching
               movies={continueWatchingMovies}
               onAddToList={handleAddToList}
               savedMovies={savedMovies}
               onRemoveFromList={handleRemoveFromList}
             />
+
           </>
         )}
 
 
-        {/* Hasil pencarian */}
+        {/* ========================================
+            4.2 HASIL PENCARIAN
+            Menampilkan film sesuai kata kunci.
+        ======================================== */}
+
         {isSearching && (
           <section className="movie-section search-results">
+
             <h2>Hasil Pencarian</h2>
 
             {filteredMovies.length > 0 ? (
+
               <div className="movie-list">
+
                 {filteredMovies.map((movie) => {
-                  // Mengambil identitas film.
                   const movieKey = movie.movieKey || movie.id
 
-                  // Memeriksa apakah film sudah tersimpan.
+                  // Memeriksa status penyimpanan film.
                   const isSaved = savedMovies.some(
                     (savedMovie) =>
                       (savedMovie.movieKey || savedMovie.id) === movieKey
                   )
 
-                  // Menampilkan kartu film.
                   return (
                     <MovieCard
                       key={movieKey}
@@ -239,17 +254,25 @@ function Home() {
                     />
                   )
                 })}
+
               </div>
+
             ) : (
               <p>Film tidak ditemukan.</p>
             )}
+
           </section>
         )}
 
 
-        {/* Kategori film dan Daftar Saya */}
+        {/* ========================================
+            4.3 KATEGORI FILM DAN DAFTAR SAYA
+            Ditampilkan ketika tidak sedang mencari.
+        ======================================== */}
+
         {!isSearching && (
           <>
+
             {/* Top Rating */}
             <MovieSection
               id="series"
@@ -259,6 +282,7 @@ function Home() {
               savedMovies={savedMovies}
               onRemoveFromList={handleRemoveFromList}
             />
+
 
             {/* Film Trending */}
             <MovieSection
@@ -270,6 +294,7 @@ function Home() {
               onRemoveFromList={handleRemoveFromList}
             />
 
+
             {/* Rilis Baru */}
             <MovieSection
               title="Rilis Baru"
@@ -279,26 +304,30 @@ function Home() {
               onRemoveFromList={handleRemoveFromList}
             />
 
+
             {/* Daftar Saya */}
             <MyList
               savedMovies={savedMovies}
               onRemoveFromList={handleRemoveFromList}
+              onUpdateStatus={handleUpdateStatus}
             />
+
           </>
         )}
+
       </main>
 
 
       {/* Footer */}
       <Footer />
+
     </div>
   )
 }
 
 
 // ========================================
-// 12. EXPORT KOMPONEN
-// Agar komponen bisa digunakan oleh file lain.
+// 5. EXPORT KOMPONEN
 // ========================================
 
 export default Home

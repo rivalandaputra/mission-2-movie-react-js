@@ -12,14 +12,15 @@ function MovieCard({
   // ========================================
   // 2. IDENTITAS FILM
   // Menggunakan movieKey jika tersedia, atau id sebagai alternatif.
-  // ========================================
+// ========================================
 
   const movieKey = movie.movieKey || movie.id
+
 
   // ========================================
   // 3. TAMPILAN KARTU FILM
   // Menampilkan poster, informasi film, dan tombol Daftar Saya.
-  // ========================================
+// ========================================
 
   return (
     <div className="movie-card">

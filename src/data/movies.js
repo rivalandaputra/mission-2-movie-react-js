@@ -84,7 +84,7 @@ export const continueWatchingMovies = [
 
 // ========================================
 // 3. DATA TOP RATING
-// Menyimpan informasi film dengan kategori Top Rating.
+// Menyimpan informasi film dalam kategori Top Rating.
 // ========================================
 
 export const topRatingMovies = [

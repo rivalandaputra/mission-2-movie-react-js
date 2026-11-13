@@ -18,7 +18,7 @@ function ContinueWatching({
   savedMovies,
   onRemoveFromList,
 }) {
-  // Referensi untuk mengakses carousel film.
+  // Referensi untuk mengakses elemen carousel film.
   const sliderRef = useRef(null)
 
 
@@ -28,18 +28,18 @@ function ContinueWatching({
   // ========================================
 
   function scrollMovies(direction) {
-    if (sliderRef.current) {
-      sliderRef.current.scrollBy({
-        left: direction * 320,
-        behavior: 'smooth',
-      })
-    }
+    if (!sliderRef.current) return
+
+    sliderRef.current.scrollBy({
+      left: direction * 320,
+      behavior: 'smooth',
+    })
   }
 
 
   // ========================================
   // 4. TAMPILAN KOMPONEN
-  // Menampilkan judul, kartu film, dan tombol navigasi.
+  // Menampilkan judul, kartu film, progress bar, dan tombol navigasi.
   // ========================================
 
   return (
@@ -60,11 +60,10 @@ function ContinueWatching({
         {/* Daftar kartu film */}
         <div className="continue-list" ref={sliderRef}>
           {movies.map((movie) => {
-            // Identitas unik film.
-            // Digunakan untuk mengenali film yang sama di kategori berbeda.
+            // Menentukan identitas film menggunakan movieKey atau id.
             const movieKey = movie.movieKey || movie.id
 
-            // Memeriksa apakah film sudah tersimpan.
+            // Memeriksa apakah film sudah tersimpan di Daftar Saya.
             const isSaved = savedMovies.some(
               (savedMovie) =>
                 (savedMovie.movieKey || savedMovie.id) === movieKey
@@ -73,7 +72,7 @@ function ContinueWatching({
             return (
               <div
                 className="continue-card"
-                key={movie.id}
+                key={movieKey}
               >
                 {/* Poster film */}
                 <img
@@ -87,7 +86,7 @@ function ContinueWatching({
 
                   <p>{movie.progress}% selesai</p>
 
-                  {/* Progress menonton */}
+                  {/* Progress bar untuk menunjukkan perkembangan tontonan */}
                   <div className="progress-bar">
                     <div
                       className="progress-value"
@@ -97,7 +96,7 @@ function ContinueWatching({
                     />
                   </div>
 
-                  {/* Tombol Daftar Saya */}
+                  {/* Tombol untuk menambah atau menghapus film dari Daftar Saya */}
                   <button
                     type="button"
                     className="my-list-button"
@@ -135,7 +134,7 @@ function ContinueWatching({
 
 
 // ========================================
-// 5. EXPORT
+// 5. EXPORT KOMPONEN
 // Agar komponen bisa digunakan oleh Home.jsx.
 // ========================================
 

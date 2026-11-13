@@ -1,9 +1,13 @@
 // ========================================
 // 1. KOMPONEN DAFTAR SAYA
-// Menampilkan seluruh film yang tersimpan.
+// Menampilkan seluruh film yang tersimpan dan mengelola status tontonan.
 // ========================================
 
-function MyList({ savedMovies, onRemoveFromList }) {
+function MyList({
+  savedMovies,
+  onRemoveFromList,
+  onUpdateStatus,
+}) {
   // ========================================
   // 2. TAMPILAN DAFTAR SAYA
   // Menampilkan pesan kosong atau daftar kartu film.
@@ -20,36 +24,74 @@ function MyList({ savedMovies, onRemoveFromList }) {
         </p>
       ) : (
         <div className="movie-list">
-          {savedMovies.map((movie) => (
-            <div
-              className="movie-card"
-              key={movie.movieKey || movie.id}
-            >
-              {/* Poster film */}
-              <img
-                src={movie.poster}
-                alt={movie.title}
-              />
+          {savedMovies.map((movie) => {
+            // Menentukan identitas film.
+            const movieKey = movie.movieKey || movie.id
 
-              {/* Informasi film */}
-              <div className="movie-card-info">
-                <h3>{movie.title}</h3>
+            // Menentukan status tontonan film.
+            const status = movie.status || 'Belum Ditonton'
 
-                {movie.year && <p>{movie.year}</p>}
+            // Mengubah status menjadi format class CSS.
+            const statusClass = status
+              .toLowerCase()
+              .replaceAll(' ', '-')
 
-                {/* Tombol untuk menghapus film dari Daftar Saya */}
-                <button
-                  type="button"
-                  className="remove-list-button"
-                  onClick={() =>
-                    onRemoveFromList(movie.movieKey || movie.id)
-                  }
-                >
-                  Hapus dari Daftar
-                </button>
+            return (
+              <div className="movie-card" key={movieKey}>
+                {/* Poster film */}
+                <img
+                  src={movie.poster}
+                  alt={movie.title}
+                />
+
+                {/* Informasi film */}
+                <div className="movie-card-info">
+                  <h3>{movie.title}</h3>
+
+                  {movie.year && <p>{movie.year}</p>}
+
+                  {/* Badge untuk menampilkan status tontonan */}
+                  <span className={`status-badge ${statusClass}`}>
+                    {status}
+                  </span>
+
+                  {/* Pilihan untuk mengubah status tontonan */}
+                  <label htmlFor={`status-${movieKey}`}>
+                    Status Tontonan
+                  </label>
+
+                  <select
+                    id={`status-${movieKey}`}
+                    value={status}
+                    onChange={(event) =>
+                      onUpdateStatus(movieKey, event.target.value)
+                    }
+                  >
+                    <option value="Belum Ditonton">
+                      Belum Ditonton
+                    </option>
+
+                    <option value="Sedang Ditonton">
+                      Sedang Ditonton
+                    </option>
+
+                    <option value="Selesai Ditonton">
+                      Selesai Ditonton
+                    </option>
+                  </select>
+
+                  {/* Tombol untuk menghapus film dari Daftar Saya */}
+                  <button
+                    type="button"
+                    className="remove-list-button"
+                    onClick={() => onRemoveFromList(movieKey)}
+                  >
+                    Hapus dari Daftar
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       )}
     </section>

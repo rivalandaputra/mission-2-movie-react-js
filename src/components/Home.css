@@ -1,4 +1,4 @@
- /* =========================================
+/* =========================================
    1. NAVBAR
    Mengatur posisi navbar, logo, dan menu.
   ========================================= */
@@ -620,12 +620,19 @@
 
 /* =========================================
    11. DAFTAR SAYA
-   Mengatur jarak, kartu, dan poster film.
-  ========================================= */
+   Mengatur kartu film, informasi, status, dan tombol.
+========================================= */
 
-  /* Jarak section Daftar Saya */
+  /* Jarak section dan judul Daftar Saya */
   #daftar-saya {
     margin: 35px 24px;
+    padding-top: 20px;
+  }
+
+  /* Judul Daftar Saya */
+  #daftar-saya > h2 {
+    margin-top: 0;
+    margin-bottom: 24px;
   }
 
   /* Susunan kartu film */
@@ -636,46 +643,123 @@
     align-items: start;
   }
 
-  /* Tampilan kartu film */
+  /* Kartu film */
   #daftar-saya .movie-card {
     width: 100%;
     min-width: 0;
     overflow: hidden;
-
     border-radius: 10px;
     background-color: #25282b;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
 
-  /* Ukuran dan bentuk poster */
+  #daftar-saya .movie-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Poster film */
   #daftar-saya .movie-card img {
     display: block;
-
     width: 100%;
     height: auto;
     aspect-ratio: 2 / 3;
-
     object-fit: cover;
     border-radius: 10px;
   }
 
   /* Informasi film */
   #daftar-saya .movie-card-info {
-    padding: 0 12px 12px;
+    padding: 0 14px 14px;
   }
 
-  /* Judul film */
   #daftar-saya .movie-card-info h3 {
-    margin: 12px 0 6px;
+    margin: 14px 0 6px;
     font-size: 16px;
+    line-height: 1.4;
   }
 
-  /* Tahun film */
   #daftar-saya .movie-card-info p {
-    margin: 0 0 10px;
+    margin: 0 0 8px;
     font-size: 14px;
   }
 
-  /* =========================================
+  /* Badge status tontonan */
+  #daftar-saya .status-badge {
+    display: inline-block;
+    margin: 2px 0 8px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  #daftar-saya .status-badge.belum-ditonton {
+    background-color: #555b63;
+  }
+
+  #daftar-saya .status-badge.sedang-ditonton {
+    background-color: #3457ff;
+  }
+
+  #daftar-saya .status-badge.selesai-ditonton {
+    background-color: #198754;
+  }
+
+  /* Label dan pilihan status */
+  #daftar-saya .movie-card-info label {
+    display: block;
+    margin: 10px 0 8px;
+    color: #bcbcbc;
+    font-size: 13px;
+    font-weight: 500;
+  }
+
+  #daftar-saya .movie-card-info select {
+    display: block;
+    width: 100%;
+    padding: 10px 12px;
+    box-sizing: border-box;
+    border: 1px solid #454545;
+    border-radius: 6px;
+    background-color: #34383d;
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+
+  #daftar-saya .movie-card-info select:hover {
+    border-color: #777;
+  }
+
+  #daftar-saya .movie-card-info select:focus {
+    border-color: #3457ff;
+  }
+
+  #daftar-saya .movie-card-info select option {
+    background-color: #25282b;
+    color: white;
+  }
+
+  /* Tombol hapus */
+  #daftar-saya .remove-list-button {
+    width: 100%;
+    margin-top: 12px;
+    padding: 10px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  #daftar-saya .remove-list-button:hover {
+    background-color: #c03939;
+    transform: translateY(-2px);
+  }
+
+/* =========================================
    12. FOOTER
    Mengatur kolom informasi di bagian bawah.
   ========================================= */
@@ -930,6 +1014,32 @@
     #daftar-saya .movie-list {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 12px;
+    }
+
+    #daftar-saya .movie-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    #daftar-saya .movie-card-info {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+    }
+
+    #daftar-saya .status-badge {
+      padding: 5px 8px;
+      font-size: 10px;
+    }
+
+    #daftar-saya .movie-card:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    #daftar-saya .remove-list-button {
+      margin-top: auto;
     }
 
     /* Navbar mobile */
