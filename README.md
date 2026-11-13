@@ -1,16 +1,123 @@
-# React + Vite
+# CHILL - Movie Streaming App
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A movie streaming website built with React JS as part of the Harisenin Full Stack Web Development Bootcamp — Mission 2.
 
-Currently, two official plugins are available:
+CHILL allows users to explore movies, search for their favorite titles, and manage their personal watchlist with different viewing statuses.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Preview
 
-## React Compiler
+**CHILL Movie App** is a streaming platform interface featuring movie categories, continue watching, and a personal watchlist.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the Oxlint configuration
+- **Login & Register** — User authentication interface.
+- **Movie Categories** — Browse movies based on different categories.
+- **Continue Watching** — Display movies with their viewing progress.
+- **Search Movies** — Search movies by title.
+- **My List** — Add and remove movies from a personal watchlist.
+- **Watch Status** — Update movie status:
+  - Belum Ditonton
+  - Sedang Ditonton
+  - Selesai Ditonton
+- **Local Storage** — Save watchlist data in the browser.
+- **Responsive Design** — Optimized for desktop and mobile screens.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Technologies Used
+
+- React JS
+- JavaScript
+- HTML5
+- CSS3
+- React Router DOM
+- Vite
+- Browser Local Storage
+- Git & GitHub
+
+## React Concepts Implemented
+
+This project implements several fundamental React concepts:
+
+- **useState** — Manage application states.
+- **Array of Objects** — Store and manage movie data.
+- **CRUD Operations** — Create, Read, Update, and Delete movies.
+- **Props** — Share data and functions between components.
+- **Array Methods** — Use `map()`, `filter()`, and `some()` to manage movie data.
+- **React Router** — Handle navigation between pages.
+- **Local Storage** — Persist watchlist data between browser sessions.
+
+## Project Structure
+
+```text
+chill-react/
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   │   ├── Login.jsx
+│   │   ├── Register.jsx
+│   │   ├── Home.jsx
+│   │   ├── NavbarTemp.jsx
+│   │   ├── ContinueWatching.jsx
+│   │   ├── MovieCard.jsx
+│   │   ├── MovieSection.jsx
+│   │   ├── MyList.jsx
+│   │   └── Footer.jsx
+│   ├── data/
+│   │   └── movies.js
+│   ├── App.jsx
+│   └── main.jsx
+├── package.json
+└── README.md
+```
+
+## Installation & Setup
+
+Follow these steps to run the project locally.
+
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/rivalandaputra/mission-2-movie-react-js.git
+```
+
+**2. Navigate to the project folder**
+
+```bash
+cd mission-2-movie-react-js
+```
+
+**3. Install dependencies**
+
+```bash
+npm install
+```
+
+**4. Run the development server**
+
+```bash
+npm run dev
+```
+
+Open the local URL displayed in your terminal to view the application.
+
+**5. Build for production**
+
+```bash
+npm run build
+```
+
+## Learning Objectives
+
+This project was developed to practice and strengthen fundamental React JS skills, particularly state management, component-based architecture, data handling, and CRUD functionality.
+
+## Author
+
+**Rival Andaputra**
+
+Full Stack Web Development Student — Harisenin Bootcamp
+
+GitHub: [@rivalandaputra](https://github.com/rivalandaputra)
+
+---
+
+Developed as part of **Harisenin Full Stack Web Development Bootcamp — Mission 2**.
